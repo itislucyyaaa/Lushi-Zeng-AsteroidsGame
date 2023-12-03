@@ -1,5 +1,6 @@
 Star[] hi;
 Spaceship bob;
+ArrayList <Asteroid> list;
 
 public void setup() {
   size(500, 500);
@@ -12,6 +13,10 @@ public void setup() {
    hi[i]=new Ball();
   }
   bob = new Spaceship();
+  list = new ArrayList <Asteroid>();
+  for (int i = 0; i < 10; i++) {
+    list.add(new Asteroid());
+  }
   frameRate(10);
 }
 
@@ -23,6 +28,19 @@ public void draw() {
   }
   bob.show();
   bob.move();
+  for (int i = 0; i < list.size(); i++) {
+    Asteroid asteroid = list.get(i);
+    asteroid.move();
+    asteroid.show();
+  }
+   for (int i=0; i<list.size(); i++){
+   list.get(i).move();
+   list.get(i).show();
+   float d = dist((float)(bob.getX()), (float)(bob.getY()), (float)(list.get(i).getX()), (float)(list.get(i).getY()));
+   if(d<8){
+     list.remove(i);
+   }
+  }
 }
 
 public void keyPressed(){
@@ -41,4 +59,3 @@ public void keyPressed(){
     }
   }
 }
-
