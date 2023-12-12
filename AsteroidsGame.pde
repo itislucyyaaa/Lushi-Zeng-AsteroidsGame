@@ -34,12 +34,13 @@ public void draw() {
     asteroid.show();
   }
    for (int i=0; i<list.size(); i++){
-   list.get(i).move();
-   list.get(i).show();
-   float d = dist((float)(bob.getX()), (float)(bob.getY()), (float)(list.get(i).getX()), (float)(list.get(i).getY()));
-   if(d<8){
-     list.remove(i);
-   }
+     list.get(i).move();
+     list.get(i).show();
+     float d = dist((float)(bob.getX()), (float)(bob.getY()), (float)(list.get(i).getX()), (float)(list.get(i).getY()));
+     if(d<20){
+       list.remove(i);
+       i--;
+  }
   }
 }
 
