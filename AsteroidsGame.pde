@@ -1,6 +1,7 @@
 Star[] hi;
 Spaceship bob;
 ArrayList <Asteroid> list;
+ArrayList <Bullet> biu; 
 
 public void setup() {
   size(500, 500);
@@ -17,6 +18,7 @@ public void setup() {
   for (int i = 0; i < 10; i++) {
     list.add(new Asteroid());
   }
+  biu = new ArrayList <Bullet>();
   frameRate(10);
 }
 
@@ -40,23 +42,36 @@ public void draw() {
      if(d<20){
        list.remove(i);
        i--;
+      }
   }
+  for(int i=0; i<biu.size(); i++){
+    biu.get(i).move();
+    biu.get(i).show();
+  }
+  for(int a=0; a<biu.size(); a++){
+    for(int b=0; b<list.size();b++){
+      float d = dist((float)(biu.get(a).getX()), (float)(biu.get(a).getY()),(float)(list.get(b).getX()),(float)(list.get(b).getY()));
+      if(d<15 && a!=0 && b!=0){
+        biu.remove(a);
+        list.remove(b);
+        a--;
+        b--;
+      }
+    }
   }
 }
-
 public void keyPressed(){
   if(keyPressed){
     if(key == 'a' || key=='A'){
       bob.turn(-10);
-    }
-    if(key == 'd' || key=='D'){
+    }else if(key == 'd' || key=='D'){
       bob.turn(10);
-    }
-    if(key == 'w' || key=='W'){
+    }else if(key == 'w' || key=='W'){
       bob.accelerate(1);
-    }
-    if(key == 's' || key=='S'){
+    }else if(key == 's' || key=='S'){
       bob.hyperspace();
+    }else if(key == ' ' || key == 'b'){
+      biu.add(new Bullet(bob));
     }
   }
 }
